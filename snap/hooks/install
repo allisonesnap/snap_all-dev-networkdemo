@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -eu
+
+snapctl set port=8080
+snapctl set bind=0.0.0.0

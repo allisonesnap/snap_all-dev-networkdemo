@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -eu
+
+PORT="$(snapctl get port)"
+BIND="$(snapctl get bind)"
+
+CONFIG_DIR="$SNAP_DATA/nginx"
+CONFIG_FILE="$CONFIG_DIR/nginx.conf"
+TEMPLATE="$SNAP/etc/hello-web/nginx.conf"
+
+mkdir -p "$CONFIG_DIR"
+
+sed \
+    -e "s|__BIND__|$BIND|g" \
+    -e "s|__PORT__|$PORT|g" \
+    "$TEMPLATE" \
+    > "$CONFIG_FILE"
+
+chmod 644 "$CONFIG_FILE"

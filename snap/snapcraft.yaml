@@ -1,0 +1,38 @@
+name: hello-web
+base: core24
+
+version: '1.0'
+summary: Simple Nginx Hello World web UI
+description: |
+  A minimal Nginx-based Hello World web application
+  packaged as a strictly confined Snap.
+
+grade: devel
+confinement: strict
+
+apps:
+  hello-web:
+    command: bin/hello-web
+    daemon: simple
+    plugs:
+      - network-bind
+
+parts:
+  hello-web:
+    plugin: dump
+    source: .
+
+    stage-packages:
+      - nginx
+
+    organize:
+      src/bin/hello-web: bin/hello-web
+      src/configs/nginx.conf: etc/hello-web/nginx.conf
+      src/scripts/generate-nginx-config: bin/generate-nginx-config
+      src/www: www
+
+    override-build: |
+      craftctl default
+
+      chmod +x "$CRAFT_PART_INSTALL/bin/hello-web"
+      chmod +x "$CRAFT_PART_INSTALL/bin/generate-nginx-config"

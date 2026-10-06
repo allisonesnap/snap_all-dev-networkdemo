@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -eu
+
+CONFIG_DIR="$SNAP_DATA/nginx"
+CONFIG_FILE="$CONFIG_DIR/nginx.conf"
+
+mkdir -p "$CONFIG_DIR"
+
+exec "$SNAP/usr/sbin/nginx" \
+    -c "$CONFIG_FILE" \
+    -p "$SNAP_DATA/nginx"

@@ -1,0 +1,15 @@
+*.snap
+*.snap.*
+*.log
+
+parts/
+prime/
+stage/
+build/
+
+*.swp
+*.swo
+
+.DS_Store
+.idea/
+.vscode/
